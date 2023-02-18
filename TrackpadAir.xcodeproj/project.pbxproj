@@ -11,6 +11,23 @@
 		5CA5F0B629A10E1D00E5211D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0B529A10E1D00E5211D /* ContentView.swift */; };
 		5CA5F0B829A10E1E00E5211D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA5F0B729A10E1E00E5211D /* Assets.xcassets */; };
 		5CA5F0BB29A10E1E00E5211D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA5F0BA29A10E1E00E5211D /* Preview Assets.xcassets */; };
+		5CA5F0C429A1102800E5211D /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0C329A1102800E5211D /* VideoCapture.swift */; };
+		5CA5F0C629A1105000E5211D /* HandPoseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0C529A1105000E5211D /* HandPoseManager.swift */; };
+		5CA5F0C929A110C400E5211D /* FingerTips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0C829A110C400E5211D /* FingerTips.swift */; };
+		5CA5F0CB29A1110B00E5211D /* HandGestureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0CA29A1110B00E5211D /* HandGestureProcessor.swift */; };
+		5CA5F0CE29A1114600E5211D /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0CD29A1114600E5211D /* ImageHelper.swift */; };
+		5CA5F0D029A1116500E5211D /* CoordinateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0CF29A1116500E5211D /* CoordinateHelper.swift */; };
+		5CA5F0D329A111A100E5211D /* FingerTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0D229A111A100E5211D /* FingerTipsView.swift */; };
+		5CA5F0D529A111CD00E5211D /* HandGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0D429A111CD00E5211D /* HandGestureView.swift */; };
+		5CA5F0D729A1120A00E5211D /* HandGestureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0D629A1120A00E5211D /* HandGestureViewModel.swift */; };
+		5CA5F0DA29A1126E00E5211D /* SwiftAutoGUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA5F0D929A1126E00E5211D /* SwiftAutoGUI */; };
+		5CA5F0DC29A112D600E5211D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0DB29A112D600E5211D /* AppDelegate.swift */; };
+		5CA5F0DE29A1135500E5211D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0DD29A1135500E5211D /* SettingView.swift */; };
+		5CA5F0E129A1139600E5211D /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA5F0E029A1139600E5211D /* Factory */; };
+		5CA5F0E529A113E400E5211D /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0E429A113E400E5211D /* GeneralView.swift */; };
+		5CA5F0E729A1140F00E5211D /* FeatureConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0E629A1140F00E5211D /* FeatureConfig.swift */; };
+		5CA5F0E929A1143300E5211D /* HandSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0E829A1143300E5211D /* HandSettingView.swift */; };
+		5CA5F0EC29A1147100E5211D /* Container+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0EB29A1147100E5211D /* Container+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +37,21 @@
 		5CA5F0B729A10E1E00E5211D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA5F0BA29A10E1E00E5211D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5CA5F0BC29A10E1E00E5211D /* TrackpadAir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrackpadAir.entitlements; sourceTree = "<group>"; };
+		5CA5F0C329A1102800E5211D /* VideoCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
+		5CA5F0C529A1105000E5211D /* HandPoseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandPoseManager.swift; sourceTree = "<group>"; };
+		5CA5F0C829A110C400E5211D /* FingerTips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FingerTips.swift; sourceTree = "<group>"; };
+		5CA5F0CA29A1110B00E5211D /* HandGestureProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGestureProcessor.swift; sourceTree = "<group>"; };
+		5CA5F0CD29A1114600E5211D /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		5CA5F0CF29A1116500E5211D /* CoordinateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateHelper.swift; sourceTree = "<group>"; };
+		5CA5F0D229A111A100E5211D /* FingerTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FingerTipsView.swift; sourceTree = "<group>"; };
+		5CA5F0D429A111CD00E5211D /* HandGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGestureView.swift; sourceTree = "<group>"; };
+		5CA5F0D629A1120A00E5211D /* HandGestureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGestureViewModel.swift; sourceTree = "<group>"; };
+		5CA5F0DB29A112D600E5211D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5CA5F0DD29A1135500E5211D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		5CA5F0E429A113E400E5211D /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
+		5CA5F0E629A1140F00E5211D /* FeatureConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureConfig.swift; sourceTree = "<group>"; };
+		5CA5F0E829A1143300E5211D /* HandSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSettingView.swift; sourceTree = "<group>"; };
+		5CA5F0EB29A1147100E5211D /* Container+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CA5F0DA29A1126E00E5211D /* SwiftAutoGUI in Frameworks */,
+				5CA5F0E129A1139600E5211D /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,11 +86,17 @@
 		5CA5F0B229A10E1D00E5211D /* TrackpadAir */ = {
 			isa = PBXGroup;
 			children = (
+				5CA5F0EA29A1144500E5211D /* Extentions */,
+				5CA5F0D129A1118900E5211D /* View */,
+				5CA5F0CC29A1112600E5211D /* Helper */,
+				5CA5F0C729A110AA00E5211D /* Model */,
+				5CA5F0C229A1100E00E5211D /* Manager */,
 				5CA5F0B329A10E1D00E5211D /* TrackpadAirApp.swift */,
 				5CA5F0B529A10E1D00E5211D /* ContentView.swift */,
 				5CA5F0B729A10E1E00E5211D /* Assets.xcassets */,
 				5CA5F0BC29A10E1E00E5211D /* TrackpadAir.entitlements */,
 				5CA5F0B929A10E1E00E5211D /* Preview Content */,
+				5CA5F0DB29A112D600E5211D /* AppDelegate.swift */,
 			);
 			path = TrackpadAir;
 			sourceTree = "<group>";
@@ -67,6 +107,71 @@
 				5CA5F0BA29A10E1E00E5211D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5CA5F0C229A1100E00E5211D /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0C329A1102800E5211D /* VideoCapture.swift */,
+				5CA5F0C529A1105000E5211D /* HandPoseManager.swift */,
+				5CA5F0CA29A1110B00E5211D /* HandGestureProcessor.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		5CA5F0C729A110AA00E5211D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0C829A110C400E5211D /* FingerTips.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5CA5F0CC29A1112600E5211D /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0CD29A1114600E5211D /* ImageHelper.swift */,
+				5CA5F0CF29A1116500E5211D /* CoordinateHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		5CA5F0D129A1118900E5211D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0E329A113C600E5211D /* Setting */,
+				5CA5F0E229A113AB00E5211D /* HandGesture */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5CA5F0E229A113AB00E5211D /* HandGesture */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0D229A111A100E5211D /* FingerTipsView.swift */,
+				5CA5F0D629A1120A00E5211D /* HandGestureViewModel.swift */,
+				5CA5F0D429A111CD00E5211D /* HandGestureView.swift */,
+			);
+			path = HandGesture;
+			sourceTree = "<group>";
+		};
+		5CA5F0E329A113C600E5211D /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0DD29A1135500E5211D /* SettingView.swift */,
+				5CA5F0E429A113E400E5211D /* GeneralView.swift */,
+				5CA5F0E629A1140F00E5211D /* FeatureConfig.swift */,
+				5CA5F0E829A1143300E5211D /* HandSettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		5CA5F0EA29A1144500E5211D /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0EB29A1147100E5211D /* Container+Extension.swift */,
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +190,10 @@
 			dependencies = (
 			);
 			name = TrackpadAir;
+			packageProductDependencies = (
+				5CA5F0D929A1126E00E5211D /* SwiftAutoGUI */,
+				5CA5F0E029A1139600E5211D /* Factory */,
+			);
 			productName = TrackpadAir;
 			productReference = 5CA5F0B029A10E1D00E5211D /* TrackpadAir.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +222,10 @@
 				Base,
 			);
 			mainGroup = 5CA5F0A729A10E1D00E5211D;
+			packageReferences = (
+				5CA5F0D829A1126E00E5211D /* XCRemoteSwiftPackageReference "SwiftAutoGUI" */,
+				5CA5F0DF29A1139600E5211D /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			productRefGroup = 5CA5F0B129A10E1D00E5211D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,8 +252,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CA5F0DC29A112D600E5211D /* AppDelegate.swift in Sources */,
 				5CA5F0B629A10E1D00E5211D /* ContentView.swift in Sources */,
+				5CA5F0D029A1116500E5211D /* CoordinateHelper.swift in Sources */,
+				5CA5F0CB29A1110B00E5211D /* HandGestureProcessor.swift in Sources */,
+				5CA5F0E929A1143300E5211D /* HandSettingView.swift in Sources */,
+				5CA5F0D529A111CD00E5211D /* HandGestureView.swift in Sources */,
+				5CA5F0C629A1105000E5211D /* HandPoseManager.swift in Sources */,
+				5CA5F0D329A111A100E5211D /* FingerTipsView.swift in Sources */,
+				5CA5F0E529A113E400E5211D /* GeneralView.swift in Sources */,
+				5CA5F0C929A110C400E5211D /* FingerTips.swift in Sources */,
+				5CA5F0DE29A1135500E5211D /* SettingView.swift in Sources */,
+				5CA5F0EC29A1147100E5211D /* Container+Extension.swift in Sources */,
+				5CA5F0C429A1102800E5211D /* VideoCapture.swift in Sources */,
+				5CA5F0E729A1140F00E5211D /* FeatureConfig.swift in Sources */,
 				5CA5F0B429A10E1D00E5211D /* TrackpadAirApp.swift in Sources */,
+				5CA5F0D729A1120A00E5211D /* HandGestureViewModel.swift in Sources */,
+				5CA5F0CE29A1114600E5211D /* ImageHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +402,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -301,6 +430,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -336,6 +466,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5CA5F0D829A1126E00E5211D /* XCRemoteSwiftPackageReference "SwiftAutoGUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NakaokaRei/SwiftAutoGUI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		5CA5F0DF29A1139600E5211D /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5CA5F0D929A1126E00E5211D /* SwiftAutoGUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CA5F0D829A1126E00E5211D /* XCRemoteSwiftPackageReference "SwiftAutoGUI" */;
+			productName = SwiftAutoGUI;
+		};
+		5CA5F0E029A1139600E5211D /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CA5F0DF29A1139600E5211D /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5CA5F0A829A10E1D00E5211D /* Project object */;
 }

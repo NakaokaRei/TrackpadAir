@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "factory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Factory",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3d6e997964f95e1d5925b018538fb10084ed1a70"
+      }
+    },
+    {
+      "identity" : "swiftautogui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/NakaokaRei/SwiftAutoGUI",
+      "state" : {
+        "branch" : "master",
+        "revision" : "b163c53d68d4df0a51771793d580189a06059dcf"
+      }
+    }
+  ],
+  "version" : 2
+}
