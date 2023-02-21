@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         let button = statusItem.button!
-        button.image = NSImage(systemSymbolName: "pc", accessibilityDescription: nil)
+        button.image = NSImage(systemSymbolName: "rectangle.and.hand.point.up.left.fill", accessibilityDescription: nil)
         button.action = #selector(showPopover)
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
