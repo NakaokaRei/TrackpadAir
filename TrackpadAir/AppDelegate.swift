@@ -16,18 +16,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.windows.forEach { $0.close() }
-        NSApp.setActivationPolicy(.accessory)
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         let button = statusItem.button!
-        button.image = NSImage(systemSymbolName: "rectangle.and.hand.point.up.left.fill", accessibilityDescription: nil)
+        button.image = NSImage(size: NSSize(width: 18.0, height: 18.0))
+        let icon = NSImage(imageLiteralResourceName: "StatusBar-icon")
+        let iconView = IconView(icon, button.bounds.size)
+        button.addSubview(iconView)
         button.action = #selector(showPopover)
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
 
     @objc func showPopover(_ sender: NSStatusBarButton) {
         guard let event = NSApp.currentEvent else { return }
-        if event.type == NSEvent.EventType.rightMouseUp {
+        if event.type == NSEvent.EventType.leftMouseUp {
             let menu = NSMenu()
 
             menu.addItem(

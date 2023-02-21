@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C8462C029A52E2900412F5C /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8462BF29A52E2900412F5C /* IconView.swift */; };
 		5CA5F0B429A10E1D00E5211D /* TrackpadAirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0B329A10E1D00E5211D /* TrackpadAirApp.swift */; };
 		5CA5F0B629A10E1D00E5211D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0B529A10E1D00E5211D /* ContentView.swift */; };
 		5CA5F0B829A10E1E00E5211D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA5F0B729A10E1E00E5211D /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C8462BF29A52E2900412F5C /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		5CA5F0B029A10E1D00E5211D /* TrackpadAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackpadAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA5F0B329A10E1D00E5211D /* TrackpadAirApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadAirApp.swift; sourceTree = "<group>"; };
 		5CA5F0B529A10E1D00E5211D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				5CA5F0E329A113C600E5211D /* Setting */,
 				5CA5F0E229A113AB00E5211D /* HandGesture */,
+				5C8462BF29A52E2900412F5C /* IconView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				5CA5F0DE29A1135500E5211D /* SettingView.swift in Sources */,
 				5CA5F0EC29A1147100E5211D /* Container+Extension.swift in Sources */,
 				5CA5F0C429A1102800E5211D /* VideoCapture.swift in Sources */,
+				5C8462C029A52E2900412F5C /* IconView.swift in Sources */,
 				5CA5F0E729A1140F00E5211D /* FeatureConfig.swift in Sources */,
 				5CA5F0B429A10E1D00E5211D /* TrackpadAirApp.swift in Sources */,
 				5CA5F0D729A1120A00E5211D /* HandGestureViewModel.swift in Sources */,
