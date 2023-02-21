@@ -23,7 +23,7 @@
   </a>
 </p>
 
-TrackPadAir is macOS app that allows you to operate without a trackpad
+TrackpadAir is macOS app that allows you to operate without a trackpad
 
 # Contributors
 
