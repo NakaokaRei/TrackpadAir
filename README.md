@@ -1,8 +1,7 @@
-<div align="center">
+<p align="center">
 <img src="img/icon.png"　width="100" height="100">
-</div>
-
-# TrackpadAir
+<h1 align="center">TrackpadAir</h1>
+</p>
 
 <!-- # Short Description -->
 
