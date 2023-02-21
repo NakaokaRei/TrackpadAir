@@ -3,17 +3,27 @@
 <h1 align="center">TrackpadAir</h1>
 </p>
 
-<!-- # Short Description -->
+<!-- # Badges -->
+<p align="center">
+  <a href="https://github.com/NakaokaRei/TrackpadAir/issues">
+  <img src="https://img.shields.io/github/issues/NakaokaRei/TrackpadAir" />
+  <a>
+  <a href="https://github.com/NakaokaRei/TrackpadAir/network/members">
+  <img src="https://img.shields.io/github/forks/NakaokaRei/TrackpadAir" />
+  <a>
+  <a href="https://github.com/NakaokaRei/TrackpadAir/stargazers">
+  <img src="https://img.shields.io/github/stars/NakaokaRei/TrackpadAir" />
+  <a>
+  <a href="https://github.com/NakaokaRei/TrackpadAir/">
+  <img src="https://img.shields.io/github/languages/top/NakaokaRei/TrackpadAir" />
+  <a>
+  <a href="https://github.com/NakaokaRei/TrackpadAir/">
+  <img src="https://img.shields.io/github/license/NakaokaRei/TrackpadAir" />
+  <a>
+  </a>
+</p>
 
 TrackPadAir is macOS app that allows you to operate without a trackpad
-
-<!-- # Badges -->
-
-[![Github issues](https://img.shields.io/github/issues/NakaokaRei/TrackpadAir)](https://github.com/NakaokaRei/TrackpadAir/issues)
-[![Github forks](https://img.shields.io/github/forks/NakaokaRei/TrackpadAir)](https://github.com/NakaokaRei/TrackpadAir/network/members)
-[![Github stars](https://img.shields.io/github/stars/NakaokaRei/TrackpadAir)](https://github.com/NakaokaRei/TrackpadAir/stargazers)
-[![Github top language](https://img.shields.io/github/languages/top/NakaokaRei/TrackpadAir)](https://github.com/NakaokaRei/TrackpadAir/)
-[![Github license](https://img.shields.io/github/license/NakaokaRei/TrackpadAir)](https://github.com/NakaokaRei/TrackpadAir/)
 
 # Contributors
 
