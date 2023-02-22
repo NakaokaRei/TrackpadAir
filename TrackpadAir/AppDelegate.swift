@@ -12,52 +12,36 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var statusItem: NSStatusItem!
-    private var popover: NSPopover?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        NSApp.windows.forEach { $0.close() }
-
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         let button = statusItem.button!
         button.image = NSImage(size: NSSize(width: 18.0, height: 18.0))
         let icon = NSImage(imageLiteralResourceName: "StatusBar-icon")
         let iconView = IconView(icon, button.bounds.size)
         button.addSubview(iconView)
-        button.action = #selector(showPopover)
+        button.action = #selector(showMenu)
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
 
-    @objc func showPopover(_ sender: NSStatusBarButton) {
-        guard let event = NSApp.currentEvent else { return }
-        if event.type == NSEvent.EventType.leftMouseUp {
-            let menu = NSMenu()
+    @objc func showMenu(_ sender: NSStatusBarButton) {
+        guard let _ = NSApp.currentEvent else { return }
+        let menu = NSMenu()
 
-            menu.addItem(
-                withTitle: NSLocalizedString("Preference", comment: "Show preferences window"),
-                action: #selector(openPreferencesWindow),
-                keyEquivalent: ""
-            )
-            menu.addItem(.separator())
-            menu.addItem(
-                withTitle: NSLocalizedString("Quit", comment: "Quit app"),
-                action: #selector(terminate),
-                keyEquivalent: ""
-            )
-            statusItem.menu = menu
-            statusItem.button?.performClick(nil)
-            statusItem.menu = nil
-            return
-        }
-
-        if popover == nil {
-            let popover = NSPopover()
-            popover.behavior = .transient
-            popover.animates = false
-            popover.contentViewController = NSHostingController(rootView: ContentView())
-            self.popover = popover
-        }
-        popover?.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxY)
-        popover?.contentViewController?.view.window?.makeKey()
+        menu.addItem(
+            withTitle: NSLocalizedString("Preference", comment: "Show preferences window"),
+            action: #selector(openPreferencesWindow),
+            keyEquivalent: ""
+        )
+        menu.addItem(.separator())
+        menu.addItem(
+            withTitle: NSLocalizedString("Quit", comment: "Quit app"),
+            action: #selector(terminate),
+            keyEquivalent: ""
+        )
+        statusItem.menu = menu
+        statusItem.button?.performClick(nil)
+        statusItem.menu = nil
     }
 
     @objc func terminate() {
