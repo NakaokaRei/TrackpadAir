@@ -32,7 +32,11 @@ class HandGestureViewModel: ObservableObject {
 
                 guard let fingerTips else { return }
                 self.buffTips = self.fingerTips
-                self.fingerTips = CoordinateHelper.transform(fingerTips: fingerTips, width: self.imageWidth, height: self.imageHeight)
+                self.fingerTips = CoordinateHelper.transform(
+                    fingerTips: fingerTips,
+                    width: self.imageWidth,
+                    height: self.imageHeight
+                )
 
                 self.operate()
             }
@@ -51,11 +55,7 @@ class HandGestureViewModel: ObservableObject {
             moveMouse()
         case .middlePinch:
             leftClick()
-        case .ringPinch:
-            moveRight()
-        case .littlePinch:
-            moveLeft()
-        case .none:
+        default:
             print("none")
         }
     }
@@ -74,11 +74,4 @@ class HandGestureViewModel: ObservableObject {
         SwiftAutoGUI.leftClick()
     }
 
-    func moveLeft() {
-        SwiftAutoGUI.sendKeyShortcut([.control, .leftArrow])
-    }
-
-    func moveRight() {
-        SwiftAutoGUI.sendKeyShortcut([.control, .rightArrow])
-    }
 }
