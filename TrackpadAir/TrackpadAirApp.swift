@@ -15,10 +15,10 @@ struct TrackpadAirApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HandGestureView()
         }
         Settings {
-            SettingsView()
+            SettingView()
         }
     }
 }

@@ -10,6 +10,6 @@ import Factory
 
 extension Container {
     @MainActor
-    static let featureConfig = Factory(scope: .singleton) { FeatureConfig() }
+    static let setting = Factory(scope: .singleton) { Setting() }
 }
 
