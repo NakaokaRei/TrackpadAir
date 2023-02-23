@@ -29,7 +29,7 @@ You can operate the mouse according to your hand movements as follows.
 > **Warning**
 > This app only works on Apple Silicon.
 
-<img src="img/demo.gif" width="400">
+<img src="img/demo.gif" width="700">
 
 # Installation
 comming soon
