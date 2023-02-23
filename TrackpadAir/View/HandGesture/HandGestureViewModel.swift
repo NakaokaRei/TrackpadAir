@@ -15,6 +15,7 @@ class HandGestureViewModel: ObservableObject {
 
     @Published var buffImage: NSImage?
     @Published var fingerTips: FingerTips?
+    @Published var event: Event?
 
     private let videoCapture = VideoCapture()
     private let handPoseManager = HandPoseManager()
@@ -70,6 +71,7 @@ class HandGestureViewModel: ObservableObject {
         let dy = fingerTips.index.y - buffTips.index.y
 
         SwiftAutoGUI.moveMouse(dx: dx * 5, dy: dy * 5)
+        event = .moveMouse
     }
 
     func scroll() {
@@ -84,10 +86,12 @@ class HandGestureViewModel: ObservableObject {
         } else {
             SwiftAutoGUI.vscroll(clicks: Int(dy/3))
         }
+        event = .scroll
     }
 
     func leftClick() {
         SwiftAutoGUI.leftClick()
+        event = .leftClick
     }
 
 }

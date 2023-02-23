@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C76918129A7856E009E8504 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76918029A7856E009E8504 /* Event.swift */; };
 		5C8462C029A52E2900412F5C /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8462BF29A52E2900412F5C /* IconView.swift */; };
 		5CA5F0B429A10E1D00E5211D /* TrackpadAirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0B329A10E1D00E5211D /* TrackpadAirApp.swift */; };
 		5CA5F0B829A10E1E00E5211D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA5F0B729A10E1E00E5211D /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C76918029A7856E009E8504 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5C8462BF29A52E2900412F5C /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		5CA5F0B029A10E1D00E5211D /* TrackpadAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackpadAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA5F0B329A10E1D00E5211D /* TrackpadAirApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadAirApp.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA5F0C829A110C400E5211D /* FingerTips.swift */,
+				5C76918029A7856E009E8504 /* Event.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				5CA5F0D329A111A100E5211D /* FingerTipsView.swift in Sources */,
 				5CA5F0C929A110C400E5211D /* FingerTips.swift in Sources */,
 				5CA5F0DE29A1135500E5211D /* SettingsView.swift in Sources */,
+				5C76918129A7856E009E8504 /* Event.swift in Sources */,
 				5CA5F0EC29A1147100E5211D /* Container+Extension.swift in Sources */,
 				5CA5F0C429A1102800E5211D /* VideoCapture.swift in Sources */,
 				5C8462C029A52E2900412F5C /* IconView.swift in Sources */,

@@ -33,12 +33,20 @@ extension HandGestureView {
                     Image(nsImage: nsImage)
                         .resizable()
                         .scaledToFill()
+                        .opacity(0.5)
                         .cornerRadius(10)
                     if let fingerTips = viewModel.fingerTips {
                         FingerTipsView(fingerTips: fingerTips)
                     }
                 }
                 .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+                .overlay(alignment: .topLeading) {
+                    if let eventName = viewModel.event?.displayName {
+                        Text(eventName)
+                            .font(.title)
+                            .padding()
+                    }
+                }
             } else {
                 VStack {
                     Text("Please run video")
