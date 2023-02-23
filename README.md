@@ -34,7 +34,9 @@ You can operate the mouse according to your hand movements as follows.
 <img src="img/demo.gif" width="700">
 
 # Installation
-comming soon
+## Manually
+* Download the [latest release](https://github.com/NakaokaRei/TrackpadAir/releases/latest).
+* Extract `TrackpadAir.app` from `TrackpadAir.zip`
 
 # Contributors
 
