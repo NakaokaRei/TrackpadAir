@@ -13,7 +13,7 @@ import SwiftUI
 struct SettingsView: View {
 
     var body: some View {
-        Text("Setting")
+        Text("Comming soon")
             .padding(20)
             .frame(width: 500, height: 375)
     }
