@@ -12,6 +12,7 @@ enum HandGestureState {
     case middlePinch
     case ringPinch
     case littlePinch
+    case indexMiddlePinch
     case none
 }
 
@@ -28,6 +29,8 @@ class HandGestureProcessor {
             return .ringPinch
         } else if CoordinateHelper.distance(p1: fingerTips.thumb, p2: fingerTips.little) < threshold {
             return .littlePinch
+        } else if CoordinateHelper.distance(p1: fingerTips.index, p2: fingerTips.middle) < threshold {
+            return .indexMiddlePinch
         } else {
             return .none
         }

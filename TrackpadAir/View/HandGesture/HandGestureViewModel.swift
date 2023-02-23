@@ -55,6 +55,8 @@ class HandGestureViewModel: ObservableObject {
             moveMouse()
         case .middlePinch:
             leftClick()
+        case .indexMiddlePinch:
+            scroll()
         default:
             print("none")
         }
@@ -68,6 +70,20 @@ class HandGestureViewModel: ObservableObject {
         let dy = fingerTips.index.y - buffTips.index.y
 
         SwiftAutoGUI.moveMouse(dx: dx * 5, dy: dy * 5)
+    }
+
+    func scroll() {
+        guard let fingerTips = self.fingerTips,
+              let buffTips = self.buffTips else { return }
+
+        let dx = buffTips.index.x - fingerTips.index.x
+        let dy =  buffTips.index.y - fingerTips.index.y
+
+        if abs(dx) >= abs(dy) {
+            SwiftAutoGUI.hscroll(clicks: Int(dx/3))
+        } else {
+            SwiftAutoGUI.vscroll(clicks: Int(dy/3))
+        }
     }
 
     func leftClick() {
