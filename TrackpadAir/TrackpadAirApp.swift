@@ -12,7 +12,7 @@ import SwiftUI
 struct TrackpadAirApp: App {
 
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+
     var body: some Scene {
         WindowGroup {
             HandGestureView()
