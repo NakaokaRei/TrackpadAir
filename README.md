@@ -26,6 +26,8 @@
 TrackpadAir is macOS app that allows you to operate without a trackpad.
 You can operate the mouse according to your hand movements as follows.
 
+A library called [SwiftAutoGUI](https://github.com/NakaokaRei/SwiftAutoGUI) is used for mouse operation.
+
 > **Warning**
 > This app only works on Apple Silicon.
 
