@@ -1,5 +1,5 @@
 //
-//  FeatureConfig.swift
+//  Setting.swift
 //  TrackpadAir
 //
 //  Created by NakaokaRei on 2023/02/18.

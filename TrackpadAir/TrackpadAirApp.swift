@@ -18,7 +18,7 @@ struct TrackpadAirApp: App {
             HandGestureView()
         }
         Settings {
-            SettingView()
+            SettingsView()
         }
     }
 }

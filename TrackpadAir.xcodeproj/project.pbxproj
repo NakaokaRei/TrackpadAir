@@ -22,7 +22,7 @@
 		5CA5F0D729A1120A00E5211D /* HandGestureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0D629A1120A00E5211D /* HandGestureViewModel.swift */; };
 		5CA5F0DA29A1126E00E5211D /* SwiftAutoGUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA5F0D929A1126E00E5211D /* SwiftAutoGUI */; };
 		5CA5F0DC29A112D600E5211D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0DB29A112D600E5211D /* AppDelegate.swift */; };
-		5CA5F0DE29A1135500E5211D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0DD29A1135500E5211D /* SettingView.swift */; };
+		5CA5F0DE29A1135500E5211D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0DD29A1135500E5211D /* SettingsView.swift */; };
 		5CA5F0E129A1139600E5211D /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA5F0E029A1139600E5211D /* Factory */; };
 		5CA5F0E729A1140F00E5211D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0E629A1140F00E5211D /* Setting.swift */; };
 		5CA5F0EC29A1147100E5211D /* Container+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0EB29A1147100E5211D /* Container+Extension.swift */; };
@@ -45,7 +45,7 @@
 		5CA5F0D429A111CD00E5211D /* HandGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGestureView.swift; sourceTree = "<group>"; };
 		5CA5F0D629A1120A00E5211D /* HandGestureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandGestureViewModel.swift; sourceTree = "<group>"; };
 		5CA5F0DB29A112D600E5211D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5CA5F0DD29A1135500E5211D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		5CA5F0DD29A1135500E5211D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5CA5F0E629A1140F00E5211D /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		5CA5F0EB29A1147100E5211D /* Container+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +63,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C76917F29A76BDA009E8504 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5CA5F0DD29A1135500E5211D /* SettingsView.swift */,
+				5CA5F0E629A1140F00E5211D /* Setting.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		5CA5F0A729A10E1D00E5211D = {
 			isa = PBXGroup;
 			children = (
@@ -134,7 +143,7 @@
 		5CA5F0D129A1118900E5211D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5CA5F0E329A113C600E5211D /* Setting */,
+				5C76917F29A76BDA009E8504 /* Settings */,
 				5CA5F0E229A113AB00E5211D /* HandGesture */,
 				5C8462BF29A52E2900412F5C /* IconView.swift */,
 			);
@@ -149,15 +158,6 @@
 				5CA5F0D429A111CD00E5211D /* HandGestureView.swift */,
 			);
 			path = HandGesture;
-			sourceTree = "<group>";
-		};
-		5CA5F0E329A113C600E5211D /* Setting */ = {
-			isa = PBXGroup;
-			children = (
-				5CA5F0DD29A1135500E5211D /* SettingView.swift */,
-				5CA5F0E629A1140F00E5211D /* Setting.swift */,
-			);
-			path = Setting;
 			sourceTree = "<group>";
 		};
 		5CA5F0EA29A1144500E5211D /* Extentions */ = {
@@ -253,7 +253,7 @@
 				5CA5F0C629A1105000E5211D /* HandPoseManager.swift in Sources */,
 				5CA5F0D329A111A100E5211D /* FingerTipsView.swift in Sources */,
 				5CA5F0C929A110C400E5211D /* FingerTips.swift in Sources */,
-				5CA5F0DE29A1135500E5211D /* SettingView.swift in Sources */,
+				5CA5F0DE29A1135500E5211D /* SettingsView.swift in Sources */,
 				5CA5F0EC29A1147100E5211D /* Container+Extension.swift in Sources */,
 				5CA5F0C429A1102800E5211D /* VideoCapture.swift in Sources */,
 				5C8462C029A52E2900412F5C /* IconView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  SettingsView.swift
 //  TrackpadAir
 //
 //  Created by NakaokaRei on 2023/02/18.
@@ -10,7 +10,7 @@ import SwiftUI
 import Foundation
 import SwiftUI
 
-struct SettingView: View {
+struct SettingsView: View {
 
     var body: some View {
         Text("Setting")
