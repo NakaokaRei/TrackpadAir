@@ -23,7 +23,16 @@
   </a>
 </p>
 
-TrackpadAir is macOS app that allows you to operate without a trackpad
+TrackpadAir is macOS app that allows you to operate without a trackpad.
+You can operate the mouse according to your hand movements as follows.
+
+> **Warning**
+> This app only works on Apple Silicon.
+
+<img src="img/TrackpadAir_demo.gif" width="400">
+
+# Installation
+comming soon
 
 # Contributors
 
