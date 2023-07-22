@@ -32,7 +32,7 @@ jobs:
     - name: Archive app
       run: xcodebuild -scheme TrackpadAir -project TrackpadAir.xcodeproj archive -archivePath TrackpadAir.xcarchive 
 
-    - name: Unzip .app file from Archive
+    - name: Zip .app file from Archive
       run: |
         cd TrackpadAir.xcarchive/Products/Applications
         zip -r TrackpadAir.app.zip TrackpadAir.app
