@@ -4,3 +4,4 @@ DerivedData/
 .DS_Store
 db.sqlite
 .swiftpm
+TrackpadAir.xcodeproj/xcuserdata
