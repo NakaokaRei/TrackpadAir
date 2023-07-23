@@ -26,6 +26,10 @@ jobs:
         security unlock-keychain -p runner build.keychain
         security import certificate.p12 -k build.keychain -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign
 
+    - name: Allow keychain access
+      run: |
+        security set-key-partition-list -S apple-tool:,apple: -s -k runner build.keychain
+
     - name: Build app
       run: xcodebuild -scheme TrackpadAir -project TrackpadAir.xcodeproj build 
 
