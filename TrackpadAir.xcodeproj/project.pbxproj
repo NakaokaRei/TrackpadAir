@@ -30,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C4572B72A8F545B00BEF0D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5C76918029A7856E009E8504 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5C8462BF29A52E2900412F5C /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		5CA5F0B029A10E1D00E5211D /* TrackpadAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackpadAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +94,7 @@
 		5CA5F0B229A10E1D00E5211D /* TrackpadAir */ = {
 			isa = PBXGroup;
 			children = (
+				5C4572B72A8F545B00BEF0D4 /* Info.plist */,
 				5CA5F0EA29A1144500E5211D /* Extentions */,
 				5CA5F0D129A1118900E5211D /* View */,
 				5CA5F0CC29A1112600E5211D /* Helper */,
@@ -400,6 +402,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrackpadAir/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -433,6 +436,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrackpadAir/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
