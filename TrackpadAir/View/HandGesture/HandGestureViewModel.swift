@@ -20,8 +20,8 @@ class HandGestureViewModel: ObservableObject {
     private let videoCapture = VideoCapture()
     private let handPoseManager = HandPoseManager()
 
-    let imageWidth: CGFloat = 384
-    let imageHeight: CGFloat = 216
+    let imageWidth: CGFloat = 384 * 2
+    let imageHeight: CGFloat = 216 * 2
 
     var buffTips: FingerTips?
 
