@@ -27,7 +27,18 @@
 		5CA5F0E129A1139600E5211D /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 5CA5F0E029A1139600E5211D /* Factory */; };
 		5CA5F0E729A1140F00E5211D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0E629A1140F00E5211D /* Setting.swift */; };
 		5CA5F0EC29A1147100E5211D /* Container+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA5F0EB29A1147100E5211D /* Container+Extension.swift */; };
+		5CA806E92C30096400BB6460 /* TrackpadAirTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA806E82C30096400BB6460 /* TrackpadAirTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5CA806EA2C30096400BB6460 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5CA5F0A829A10E1D00E5211D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CA5F0AF29A10E1D00E5211D;
+			remoteInfo = TrackpadAir;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5C4572B72A8F545B00BEF0D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +62,8 @@
 		5CA5F0DD29A1135500E5211D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5CA5F0E629A1140F00E5211D /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		5CA5F0EB29A1147100E5211D /* Container+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Container+Extension.swift"; sourceTree = "<group>"; };
+		5CA806E62C30096400BB6460 /* TrackpadAirTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackpadAirTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CA806E82C30096400BB6460 /* TrackpadAirTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadAirTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +73,13 @@
 			files = (
 				5CA5F0DA29A1126E00E5211D /* SwiftAutoGUI in Frameworks */,
 				5CA5F0E129A1139600E5211D /* Factory in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CA806E32C30096400BB6460 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA5F0B229A10E1D00E5211D /* TrackpadAir */,
+				5CA806E72C30096400BB6460 /* TrackpadAirTests */,
 				5CA5F0B129A10E1D00E5211D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA5F0B029A10E1D00E5211D /* TrackpadAir.app */,
+				5CA806E62C30096400BB6460 /* TrackpadAirTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,6 +195,14 @@
 			path = Extentions;
 			sourceTree = "<group>";
 		};
+		5CA806E72C30096400BB6460 /* TrackpadAirTests */ = {
+			isa = PBXGroup;
+			children = (
+				5CA806E82C30096400BB6460 /* TrackpadAirTests.swift */,
+			);
+			path = TrackpadAirTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -197,6 +227,24 @@
 			productReference = 5CA5F0B029A10E1D00E5211D /* TrackpadAir.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5CA806E52C30096400BB6460 /* TrackpadAirTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CA806EC2C30096400BB6460 /* Build configuration list for PBXNativeTarget "TrackpadAirTests" */;
+			buildPhases = (
+				5CA806E22C30096400BB6460 /* Sources */,
+				5CA806E32C30096400BB6460 /* Frameworks */,
+				5CA806E42C30096400BB6460 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5CA806EB2C30096400BB6460 /* PBXTargetDependency */,
+			);
+			name = TrackpadAirTests;
+			productName = TrackpadAirTests;
+			productReference = 5CA806E62C30096400BB6460 /* TrackpadAirTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -204,11 +252,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					5CA5F0AF29A10E1D00E5211D = {
 						CreatedOnToolsVersion = 14.1;
+					};
+					5CA806E52C30096400BB6460 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 5CA5F0AF29A10E1D00E5211D;
 					};
 				};
 			};
@@ -230,6 +282,7 @@
 			projectRoot = "";
 			targets = (
 				5CA5F0AF29A10E1D00E5211D /* TrackpadAir */,
+				5CA806E52C30096400BB6460 /* TrackpadAirTests */,
 			);
 		};
 /* End PBXProject section */
@@ -241,6 +294,13 @@
 			files = (
 				5CA5F0BB29A10E1E00E5211D /* Preview Assets.xcassets in Resources */,
 				5CA5F0B829A10E1E00E5211D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CA806E42C30096400BB6460 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +330,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5CA806E22C30096400BB6460 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CA806E92C30096400BB6460 /* TrackpadAirTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5CA806EB2C30096400BB6460 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CA5F0AF29A10E1D00E5211D /* TrackpadAir */;
+			targetProxy = 5CA806EA2C30096400BB6460 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5CA5F0BD29A10E1E00E5211D /* Debug */ = {
@@ -460,6 +536,61 @@
 			};
 			name = Release;
 		};
+		5CA806ED2C30096400BB6460 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZJJ7KR6WA;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.me.n.rei.TrackpadAirTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackpadAir.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrackpadAir";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		5CA806EE2C30096400BB6460 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZJJ7KR6WA;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.me.n.rei.TrackpadAirTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackpadAir.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrackpadAir";
+				XROS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -477,6 +608,15 @@
 			buildConfigurations = (
 				5CA5F0C029A10E1E00E5211D /* Debug */,
 				5CA5F0C129A10E1E00E5211D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5CA806EC2C30096400BB6460 /* Build configuration list for PBXNativeTarget "TrackpadAirTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CA806ED2C30096400BB6460 /* Debug */,
+				5CA806EE2C30096400BB6460 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
