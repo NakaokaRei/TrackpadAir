@@ -8,7 +8,7 @@
 import Foundation
 import Vision
 
-public class HandPoseManager {
+class HandPoseManager {
     private var handPoseResquest = VNDetectHumanHandPoseRequest()
 
     public init() {
@@ -19,7 +19,7 @@ public class HandPoseManager {
         handPoseResquest.maximumHandCount = 1
     }
 
-    public func recognize(_ sampleBuffer: CMSampleBuffer) async throws -> FingerTips? {
+    func recognize(_ sampleBuffer: CMSampleBuffer) async throws -> FingerTips? {
 
         let handler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, orientation: .up, options: [:])
         try handler.perform([handPoseResquest])

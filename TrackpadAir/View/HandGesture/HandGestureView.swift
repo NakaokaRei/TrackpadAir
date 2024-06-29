@@ -12,9 +12,7 @@ public struct HandGestureView: View {
     @ObservedObject var viewModel = HandGestureViewModel()
     @State private var startVideo = false
 
-    public init() {}
-
-    public var body: some View {
+    var body: some View {
         VStack(spacing: 15) {
             videoView
                 .padding([.leading, .top, .trailing])

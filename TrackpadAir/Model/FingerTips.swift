@@ -7,15 +7,15 @@
 
 import Foundation
 
-public struct FingerTips {
+struct FingerTips {
 
-    public let thumb: CGPoint
-    public let index: CGPoint
-    public let middle: CGPoint
-    public let ring: CGPoint
-    public let little: CGPoint
+    let thumb: CGPoint
+    let index: CGPoint
+    let middle: CGPoint
+    let ring: CGPoint
+    let little: CGPoint
 
-    public init(
+    init(
         thumb: CGPoint,
         index: CGPoint,
         middle: CGPoint,

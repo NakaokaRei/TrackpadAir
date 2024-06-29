@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-public class VideoCapture: NSObject {
+class VideoCapture: NSObject {
     let captureSession = AVCaptureSession()
     var handler: ((CMSampleBuffer) -> Void)?
 
