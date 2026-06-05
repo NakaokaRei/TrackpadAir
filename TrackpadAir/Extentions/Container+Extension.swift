@@ -10,6 +10,5 @@ import Factory
 
 extension Container {
     @MainActor
-    static let setting = Factory(scope: .singleton) { Setting() }
+    static let setting = Factory(scope: .singleton) { Setting.shared }
 }
-
