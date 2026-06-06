@@ -1,12 +1,19 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Marketing version and tag (for example: 0.3.0)"
+        required: true
+        type: string
 
 permissions:
   contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -15,6 +22,77 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Validate version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Version must use the x.y.z format."
+            exit 1
+          fi
+
+          if git rev-parse --verify --quiet "refs/tags/$VERSION"; then
+            echo "::error::Tag $VERSION already exists."
+            exit 1
+          fi
+
+      - name: Update marketing version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          ruby <<'RUBY'
+          path = "TrackpadAir.xcodeproj/project.pbxproj"
+          project = File.read(path)
+          version = ENV.fetch("VERSION")
+          updated_configurations = 0
+
+          updated_project = project.gsub(
+            /(\w+ \/\* (?:Debug|Release) \*\/ = \{\n\s+isa = XCBuildConfiguration;.*?\n\s+\};)/m
+          ) do |configuration|
+            unless configuration.include?("PRODUCT_BUNDLE_IDENTIFIER = com.TrackpadAir;")
+              next configuration
+            end
+
+            updated_configuration = configuration.sub(
+              /MARKETING_VERSION = [^;]+;/,
+              "MARKETING_VERSION = #{version};"
+            )
+
+            if updated_configuration == configuration
+              abort "MARKETING_VERSION was not found in an app build configuration"
+            end
+
+            updated_configurations += 1
+            updated_configuration
+          end
+
+          unless updated_configurations == 2
+            abort "Expected to update 2 app build configurations, updated #{updated_configurations}"
+          end
+
+          File.write(path, updated_project)
+          RUBY
+
+      - name: Push version and tag
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if git diff --quiet -- TrackpadAir.xcodeproj/project.pbxproj; then
+            echo "::error::Marketing version is already $VERSION."
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add TrackpadAir.xcodeproj/project.pbxproj
+          git commit -m "Bump version to $VERSION"
+          git push origin HEAD:main
+          git tag "$VERSION"
+          git push origin "$VERSION"
 
       - name: Import signing certificate
         env:
@@ -63,8 +141,9 @@ jobs:
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
         run: |
-          gh release create "$GITHUB_REF_NAME" \
+          gh release create "$VERSION" \
             TrackpadAir.app.zip \
             --generate-notes \
             --verify-tag
