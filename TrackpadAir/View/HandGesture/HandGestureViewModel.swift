@@ -64,9 +64,15 @@ class HandGestureViewModel: ObservableObject {
     func operate() async {
         guard let fingerTips else { return }
         let gesture = HandGestureProcessor.process(fingerTips: fingerTips)
+        let previousGesture = recognizedGesture
         recognizedGesture = gesture
 
         guard let action = setting.action(for: gesture) else {
+            event = nil
+            return
+        }
+
+        if action.behavior == .sequence, gesture == previousGesture {
             event = nil
             return
         }
@@ -94,16 +100,13 @@ struct GestureActionExecutor: GestureActionExecuting {
         fingerTips: FingerTips?,
         previousFingerTips: FingerTips?
     ) async -> Event? {
-        switch action {
+        switch action.behavior {
         case .moveMouse:
             guard let fingerTips, let previousFingerTips else { return nil }
             let dx = fingerTips.index.x - previousFingerTips.index.x
             let dy = fingerTips.index.y - previousFingerTips.index.y
             await Action.moveMouse(dx: dx * 5, dy: dy * 5).execute()
-            return .moveMouse
-        case .leftClick:
-            await Action.leftClick.execute()
-            return .leftClick
+            return action
         case .scroll:
             guard let fingerTips, let previousFingerTips else { return nil }
             let dx = previousFingerTips.index.x - fingerTips.index.x
@@ -114,7 +117,56 @@ struct GestureActionExecutor: GestureActionExecuting {
             } else {
                 await Action.vscroll(clicks: Int(dy / 3)).execute()
             }
-            return .scroll
+            return action
+        case .sequence:
+            await action.steps.compactMap(\.swiftAutoGUIAction).execute()
+            return action
+        }
+    }
+}
+
+private extension CommandStep {
+    var swiftAutoGUIAction: Action? {
+        switch kind {
+        case .leftClick:
+            return .leftClick
+        case .rightClick:
+            return .rightClick
+        case .doubleClick:
+            return .doubleClick()
+        case .typeText:
+            return .write(value)
+        case .shortcut:
+            let keys = value
+                .split(separator: "+")
+                .compactMap { Key(commandName: String($0)) }
+            return keys.isEmpty ? nil : .keyShortcut(keys)
+        case .wait:
+            return .wait(max(0, Double(value) ?? 0))
+        }
+    }
+}
+
+private extension Key {
+    init?(commandName: String) {
+        let name = commandName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let aliases: [String: Key] = [
+            "cmd": .command, "⌘": .command,
+            "ctrl": .control, "⌃": .control,
+            "alt": .option, "opt": .option, "⌥": .option,
+            "⇧": .shift,
+            "return": .returnKey, "enter": .returnKey,
+            "esc": .escape,
+            "left": .leftArrow, "right": .rightArrow,
+            "up": .upArrow, "down": .downArrow,
+            "0": .zero, "1": .one, "2": .two, "3": .three, "4": .four,
+            "5": .five, "6": .six, "7": .seven, "8": .eight, "9": .nine
+        ]
+
+        if let key = aliases[name] {
+            self = key
+        } else {
+            self.init(rawValue: name)
         }
     }
 }
