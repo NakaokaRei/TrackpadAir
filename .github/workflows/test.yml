@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: macos-26
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Run tests
+        run: |
+          xcodebuild test \
+            -project TrackpadAir.xcodeproj \
+            -scheme TrackpadAir \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO

@@ -3,62 +3,71 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - "*"
+
+permissions:
+  contents: write
 
 jobs:
-  build:
-    runs-on: macos-latest
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_15.4.app/Contents/Developer
+  release:
+    runs-on: macos-26
+    timeout-minutes: 30
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
-    # See more details at https://docs.github.com/ja/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
-    - name: Import Certificate
-      env:
-        CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
-        CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
-      run: |
-        echo $CERTIFICATE_P12 | base64 --decode > certificate.p12
-        security create-keychain -p runner build.keychain
-        security default-keychain -s build.keychain
-        security unlock-keychain -p runner build.keychain
-        security import certificate.p12 -k build.keychain -P $CERTIFICATE_PASSWORD -T /usr/bin/codesign
+      - name: Import signing certificate
+        env:
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/build.keychain-db"
+          CERTIFICATE_PATH="$RUNNER_TEMP/certificate.p12"
 
-    - name: Allow keychain access
-      run: |
-        security set-key-partition-list -S apple-tool:,apple: -s -k runner build.keychain
+          printf '%s' "$CERTIFICATE_P12" | base64 --decode > "$CERTIFICATE_PATH"
+          security create-keychain -p runner "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p runner "$KEYCHAIN_PATH"
+          security import "$CERTIFICATE_PATH" \
+            -k "$KEYCHAIN_PATH" \
+            -P "$CERTIFICATE_PASSWORD" \
+            -T /usr/bin/codesign
+          security set-key-partition-list \
+            -S apple-tool:,apple: \
+            -s \
+            -k runner \
+            "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH"
 
-    - name: Build app
-      run: xcodebuild -scheme TrackpadAir -project TrackpadAir.xcodeproj build 
+      - name: Run tests
+        run: |
+          xcodebuild test \
+            -project TrackpadAir.xcodeproj \
+            -scheme TrackpadAir \
+            -destination 'platform=macOS'
 
-    - name: Archive app
-      run: xcodebuild -scheme TrackpadAir -project TrackpadAir.xcodeproj archive -archivePath TrackpadAir.xcarchive 
+      - name: Archive app
+        run: |
+          xcodebuild archive \
+            -project TrackpadAir.xcodeproj \
+            -scheme TrackpadAir \
+            -archivePath "$RUNNER_TEMP/TrackpadAir.xcarchive"
 
-    - name: Zip .app file from Archive
-      run: |
-        cd TrackpadAir.xcarchive/Products/Applications
-        zip -r TrackpadAir.app.zip TrackpadAir.app
-        mv TrackpadAir.app.zip ../../../
+      - name: Package app
+        run: |
+          ditto -c -k --keepParent \
+            "$RUNNER_TEMP/TrackpadAir.xcarchive/Products/Applications/TrackpadAir.app" \
+            TrackpadAir.app.zip
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: v${{ github.ref }}
-        draft: false
-        prerelease: false
-        
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./TrackpadAir.app.zip
-        asset_name: TrackpadAir.app.zip
-        asset_content_type: application/zip
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            TrackpadAir.app.zip \
+            --generate-notes \
+            --verify-tag
+
+      - name: Clean up keychain
+        if: always()
+        run: security delete-keychain "$RUNNER_TEMP/build.keychain-db" || true
