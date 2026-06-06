@@ -93,7 +93,7 @@ struct TrackpadAirTests {
     }
 
     @MainActor
-    @Test func viewModelResolvesConfiguredAction() {
+    @Test func viewModelResolvesConfiguredAction() async {
         let setting = Setting(userDefaults: makeUserDefaults())
         setting.setAction(.leftClick, for: .ringPinch)
         let viewModel = HandGestureViewModel(
@@ -108,7 +108,7 @@ struct TrackpadAirTests {
             little: .init(x: 60, y: 0)
         )
 
-        viewModel.operate()
+        await viewModel.operate()
 
         #expect(viewModel.recognizedGesture == .ringPinch)
         #expect(viewModel.event == .leftClick)
@@ -127,7 +127,7 @@ private struct FakeGestureActionExecutor: GestureActionExecuting {
         action: Event,
         fingerTips: FingerTips?,
         previousFingerTips: FingerTips?
-    ) -> Event? {
+    ) async -> Event? {
         action
     }
 }

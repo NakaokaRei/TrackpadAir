@@ -8,6 +8,7 @@
 import Foundation
 import Vision
 
+@MainActor
 class HandPoseManager {
     private var handPoseResquest = VNDetectHumanHandPoseRequest()
 
@@ -61,4 +62,3 @@ class HandPoseManager {
         return fingerTips
     }
 }
-
