@@ -29,3 +29,35 @@ struct FingerTips {
         self.little = little
     }
 }
+
+struct HandPoseFrame {
+    let fingerTips: FingerTips
+    let handScale: CGFloat
+    let confidence: Float
+    let aspectRatio: CGFloat
+
+    init(
+        fingerTips: FingerTips,
+        handScale: CGFloat,
+        confidence: Float,
+        aspectRatio: CGFloat = 1
+    ) {
+        self.fingerTips = fingerTips
+        self.handScale = handScale
+        self.confidence = confidence
+        self.aspectRatio = aspectRatio
+    }
+
+    func transformed(width: CGFloat, height: CGFloat) -> HandPoseFrame {
+        HandPoseFrame(
+            fingerTips: CoordinateHelper.transform(
+                fingerTips: fingerTips,
+                width: width,
+                height: height
+            ),
+            handScale: handScale * min(width, height),
+            confidence: confidence,
+            aspectRatio: 1
+        )
+    }
+}
