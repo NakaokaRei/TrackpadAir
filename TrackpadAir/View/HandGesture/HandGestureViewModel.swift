@@ -50,7 +50,7 @@ class HandGestureViewModel: ObservableObject {
                     height: self.imageHeight
                 )
 
-                self.operate()
+                await self.operate()
             }
         }
     }
@@ -61,7 +61,7 @@ class HandGestureViewModel: ObservableObject {
         event = nil
     }
 
-    func operate() {
+    func operate() async {
         guard let fingerTips else { return }
         let gesture = HandGestureProcessor.process(fingerTips: fingerTips)
         recognizedGesture = gesture
@@ -71,7 +71,7 @@ class HandGestureViewModel: ObservableObject {
             return
         }
 
-        event = actionExecutor.execute(
+        event = await actionExecutor.execute(
             action: action,
             fingerTips: fingerTips,
             previousFingerTips: buffTips
@@ -85,7 +85,7 @@ protocol GestureActionExecuting {
         action: Event,
         fingerTips: FingerTips?,
         previousFingerTips: FingerTips?
-    ) -> Event?
+    ) async -> Event?
 }
 
 struct GestureActionExecutor: GestureActionExecuting {
@@ -93,16 +93,16 @@ struct GestureActionExecutor: GestureActionExecuting {
         action: Event,
         fingerTips: FingerTips?,
         previousFingerTips: FingerTips?
-    ) -> Event? {
+    ) async -> Event? {
         switch action {
         case .moveMouse:
             guard let fingerTips, let previousFingerTips else { return nil }
             let dx = fingerTips.index.x - previousFingerTips.index.x
             let dy = fingerTips.index.y - previousFingerTips.index.y
-            SwiftAutoGUI.moveMouse(dx: dx * 5, dy: dy * 5)
+            await Action.moveMouse(dx: dx * 5, dy: dy * 5).execute()
             return .moveMouse
         case .leftClick:
-            SwiftAutoGUI.leftClick()
+            await Action.leftClick.execute()
             return .leftClick
         case .scroll:
             guard let fingerTips, let previousFingerTips else { return nil }
@@ -110,9 +110,9 @@ struct GestureActionExecutor: GestureActionExecuting {
             let dy = previousFingerTips.index.y - fingerTips.index.y
 
             if abs(dx) >= abs(dy) {
-                SwiftAutoGUI.hscroll(clicks: Int(dx / 3))
+                await Action.hscroll(clicks: Int(dx / 3)).execute()
             } else {
-                SwiftAutoGUI.vscroll(clicks: Int(dy / 3))
+                await Action.vscroll(clicks: Int(dy / 3)).execute()
             }
             return .scroll
         }
@@ -124,33 +124,7 @@ struct PreviewGestureActionExecutor: GestureActionExecuting {
         action: Event,
         fingerTips: FingerTips?,
         previousFingerTips: FingerTips?
-    ) -> Event? {
+    ) async -> Event? {
         action
-    }
-}
-
-extension HandGestureViewModel {
-    func moveMouse() {
-        event = actionExecutor.execute(
-            action: .moveMouse,
-            fingerTips: fingerTips,
-            previousFingerTips: buffTips
-        )
-    }
-
-    func scroll() {
-        event = actionExecutor.execute(
-            action: .scroll,
-            fingerTips: fingerTips,
-            previousFingerTips: buffTips
-        )
-    }
-
-    func leftClick() {
-        event = actionExecutor.execute(
-            action: .leftClick,
-            fingerTips: fingerTips,
-            previousFingerTips: buffTips
-        )
     }
 }

@@ -29,7 +29,7 @@ You can operate the mouse according to your hand movements as follows.
 [SwiftAutoGUI](https://github.com/NakaokaRei/SwiftAutoGUI) is used for mouse operation.
 
 > **Warning**
-> This app only works on Apple Silicon.
+> This app requires macOS 26 or later and Apple Silicon.
 
 <img src="img/demo.gif" width="700">
 
