@@ -20,13 +20,15 @@ class HandGestureViewModel: ObservableObject {
 
     private let videoCapture = VideoCapture()
     private let handPoseManager = HandPoseManager()
+    private let gestureProcessor = HandGestureProcessor()
     private let setting: Setting
     private let actionExecutor: any GestureActionExecuting
+    private var captureGeneration = 0
 
     let imageWidth: CGFloat = 384 * 2
     let imageHeight: CGFloat = 216 * 2
 
-    var buffTips: FingerTips?
+    private(set) var buffTips: FingerTips?
 
     init(
         setting: Setting? = nil,
@@ -37,42 +39,43 @@ class HandGestureViewModel: ObservableObject {
     }
 
     func startCapture() {
+        captureGeneration += 1
+        let generation = captureGeneration
+        let handPoseManager = handPoseManager
         videoCapture.run { sampleBuffer in
-            Task {
-                self.buffImage = NSImageFromSampleBuffer(sampleBuffer)
-                let fingerTips = try await self.handPoseManager.recognize(sampleBuffer)
-
-                guard let fingerTips else { return }
-                self.buffTips = self.fingerTips
-                self.fingerTips = CoordinateHelper.transform(
-                    fingerTips: fingerTips,
-                    width: self.imageWidth,
-                    height: self.imageHeight
-                )
-
-                await self.operate()
+            handPoseManager.submit(sampleBuffer) { [weak self] result in
+                guard let self, self.captureGeneration == generation else { return }
+                Task { @MainActor in
+                    await self.consume(result)
+                }
             }
         }
     }
 
     func stop() {
+        captureGeneration += 1
         videoCapture.stop()
+        handPoseManager.reset()
+        gestureProcessor.reset()
+        buffImage = nil
+        fingerTips = nil
+        buffTips = nil
         recognizedGesture = .none
         event = nil
     }
 
-    func operate() async {
-        guard let fingerTips else { return }
-        let gesture = HandGestureProcessor.process(fingerTips: fingerTips)
-        let previousGesture = recognizedGesture
-        recognizedGesture = gesture
+    func process(frame: HandPoseFrame?) async {
+        let update = gestureProcessor.process(frame: frame)
+        buffTips = fingerTips
+        fingerTips = update.fingerTips
+        recognizedGesture = update.gesture
 
-        guard let action = setting.action(for: gesture) else {
+        guard let action = setting.action(for: update.gesture) else {
             event = nil
             return
         }
 
-        if action.behavior == .sequence, gesture == previousGesture {
+        if action.behavior == .sequence, !update.didTransition {
             event = nil
             return
         }
@@ -82,6 +85,15 @@ class HandGestureViewModel: ObservableObject {
             fingerTips: fingerTips,
             previousFingerTips: buffTips
         )
+    }
+
+    private func consume(_ result: HandPoseProcessingResult) async {
+        buffImage = result.image
+        let transformedFrame = result.frame?.transformed(
+            width: imageWidth,
+            height: imageHeight
+        )
+        await process(frame: transformedFrame)
     }
 }
 
@@ -95,6 +107,10 @@ protocol GestureActionExecuting {
 }
 
 struct GestureActionExecutor: GestureActionExecuting {
+    private let movementDeadZone: CGFloat = 0.8
+    private let maximumMovement: CGFloat = 18
+    private let movementGain: CGFloat = 5
+
     func execute(
         action: Event,
         fingerTips: FingerTips?,
@@ -103,9 +119,15 @@ struct GestureActionExecutor: GestureActionExecuting {
         switch action.behavior {
         case .moveMouse:
             guard let fingerTips, let previousFingerTips else { return nil }
-            let dx = fingerTips.index.x - previousFingerTips.index.x
-            let dy = fingerTips.index.y - previousFingerTips.index.y
-            await Action.moveMouse(dx: dx * 5, dy: dy * 5).execute()
+            let movement = pointerMovement(
+                from: previousFingerTips.index,
+                to: fingerTips.index
+            )
+            guard movement != .zero else { return nil }
+            await Action.moveMouse(
+                dx: movement.x * movementGain,
+                dy: movement.y * movementGain
+            ).execute()
             return action
         case .scroll:
             guard let fingerTips, let previousFingerTips else { return nil }
@@ -122,6 +144,26 @@ struct GestureActionExecutor: GestureActionExecuting {
             await action.steps.compactMap(\.swiftAutoGUIAction).execute()
             return action
         }
+    }
+
+    func pointerMovement(from previous: CGPoint, to current: CGPoint) -> CGPoint {
+        boundedMovement(
+            dx: previous.x - current.x,
+            dy: current.y - previous.y
+        )
+    }
+
+    private func boundedMovement(dx: CGFloat, dy: CGFloat) -> CGPoint {
+        let magnitude = hypot(dx, dy)
+        guard magnitude >= movementDeadZone else {
+            return .zero
+        }
+        guard magnitude > maximumMovement else {
+            return CGPoint(x: dx, y: dy)
+        }
+
+        let scale = maximumMovement / magnitude
+        return CGPoint(x: dx * scale, y: dy * scale)
     }
 }
 

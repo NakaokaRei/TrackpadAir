@@ -11,18 +11,11 @@ import Foundation
 
 struct TrackpadAirTests {
 
-    @Test(arguments: [
-        (FingerTips(thumb: .zero, index: .zero, middle: .zero, ring: .zero, little: .zero), HandGestureState.indexPinch),
-        (FingerTips(thumb: .zero, index: .init(x: 10, y: 10), middle: .zero, ring: .init(x: 10, y: 10), little: .init(x: 10, y: 10)), HandGestureState.middlePinch),
-        (FingerTips(thumb: .zero, index: .init(x: 20, y: 0), middle: .init(x: 40, y: 0), ring: .init(x: 1, y: 1), little: .init(x: 60, y: 0)), HandGestureState.ringPinch),
-        (FingerTips(thumb: .zero, index: .init(x: 20, y: 0), middle: .init(x: 40, y: 0), ring: .init(x: 60, y: 0), little: .init(x: 1, y: 1)), HandGestureState.littlePinch),
-        (FingerTips(thumb: .init(x: 40, y: 0), index: .zero, middle: .init(x: 1, y: 1), ring: .init(x: 80, y: 0), little: .init(x: 120, y: 0)), HandGestureState.indexMiddlePinch),
-        (FingerTips(thumb: .init(x: 40, y: 0), index: .init(x: 80, y: 0), middle: .zero, ring: .init(x: 1, y: 1), little: .init(x: 120, y: 0)), HandGestureState.middleRingPinch),
-        (FingerTips(thumb: .init(x: 40, y: 0), index: .init(x: 80, y: 0), middle: .init(x: 120, y: 0), ring: .zero, little: .init(x: 1, y: 1)), HandGestureState.ringLittlePinch),
-        (FingerTips(thumb: .zero, index: .init(x: 1, y: 0), middle: .init(x: 0, y: 1), ring: .init(x: 40, y: 0), little: .init(x: 80, y: 0)), HandGestureState.threeFingerPinch),
-    ]) func handposeGesture(fingerTips: FingerTips, expectedState: HandGestureState) {
-        let event = HandGestureProcessor.process(fingerTips: fingerTips)
-        #expect(event == expectedState)
+    @Test(arguments: HandGestureState.assignableGestures)
+    func handposeGesture(expectedState: HandGestureState) {
+        #expect(
+            HandGestureProcessor.classify(frame: makeFrame(for: expectedState)) == expectedState
+        )
     }
 
     @Test func assignableGesturesExcludeNone() {
@@ -40,15 +33,94 @@ struct TrackpadAirTests {
     }
 
     @Test func threeFingerPinchHasPriorityOverSinglePinches() {
-        let fingerTips = FingerTips(
-            thumb: .zero,
-            index: .init(x: 1, y: 0),
-            middle: .init(x: 0, y: 1),
-            ring: .init(x: 40, y: 0),
-            little: .init(x: 80, y: 0)
+        let frame = makeFrame(for: .threeFingerPinch)
+
+        #expect(HandGestureProcessor.classify(frame: frame) == .threeFingerPinch)
+    }
+
+    @Test func gestureRecognitionIsIndependentOfDisplayedHandSize() {
+        let smallFrame = makeFrame(for: .indexPinch, scale: 50)
+        let largeFrame = makeFrame(for: .indexPinch, scale: 200)
+
+        #expect(HandGestureProcessor.classify(frame: smallFrame) == .indexPinch)
+        #expect(HandGestureProcessor.classify(frame: largeFrame) == .indexPinch)
+    }
+
+    @Test func gestureRequiresTwoConsecutiveFrames() {
+        let processor = HandGestureProcessor()
+        let frame = makeFrame(for: .indexPinch)
+
+        #expect(processor.process(frame: frame).gesture == .none)
+        let confirmed = processor.process(frame: frame)
+        #expect(confirmed.gesture == .indexPinch)
+        #expect(confirmed.didTransition)
+    }
+
+    @Test func singleFrameNoiseDoesNotReleaseGesture() {
+        let processor = HandGestureProcessor()
+        let pinchFrame = makeFrame(for: .indexPinch)
+        _ = processor.process(frame: pinchFrame)
+        _ = processor.process(frame: pinchFrame)
+
+        let noisyFrame = makeFrame(
+            fingerTips: FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 80, y: 0),
+                middle: CGPoint(x: 200, y: 0),
+                ring: CGPoint(x: 300, y: 0),
+                little: CGPoint(x: 400, y: 0)
+            )
         )
 
-        #expect(HandGestureProcessor.process(fingerTips: fingerTips) == .threeFingerPinch)
+        #expect(processor.process(frame: noisyFrame).gesture == .indexPinch)
+    }
+
+    @Test func releaseThresholdPreventsBoundaryFlicker() {
+        let processor = HandGestureProcessor()
+        let pinchFrame = makeFrame(for: .indexPinch)
+        _ = processor.process(frame: pinchFrame)
+        _ = processor.process(frame: pinchFrame)
+
+        let boundaryFrame = makeFrame(
+            fingerTips: FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 40, y: 0),
+                middle: CGPoint(x: 200, y: 0),
+                ring: CGPoint(x: 300, y: 0),
+                little: CGPoint(x: 400, y: 0)
+            )
+        )
+
+        #expect(processor.process(frame: boundaryFrame).gesture == .indexPinch)
+        #expect(processor.process(frame: boundaryFrame).gesture == .indexPinch)
+    }
+
+    @Test func twoMissingFramesResetGestureAndCoordinates() {
+        let processor = HandGestureProcessor()
+        let pinchFrame = makeFrame(for: .indexPinch)
+        _ = processor.process(frame: pinchFrame)
+        _ = processor.process(frame: pinchFrame)
+
+        let firstMiss = processor.process(frame: nil)
+        #expect(firstMiss.gesture == .indexPinch)
+        #expect(firstMiss.fingerTips != nil)
+
+        let secondMiss = processor.process(frame: nil)
+        #expect(secondMiss.gesture == .none)
+        #expect(secondMiss.fingerTips == nil)
+        #expect(secondMiss.didTransition)
+    }
+
+    @Test func pointerMovementCompensatesForMirroredPreview() {
+        let executor = GestureActionExecutor()
+
+        let movement = executor.pointerMovement(
+            from: CGPoint(x: 100, y: 100),
+            to: CGPoint(x: 90, y: 100)
+        )
+
+        #expect(movement.x > 0)
+        #expect(movement.y == 0)
     }
 
     @MainActor
@@ -126,22 +198,38 @@ struct TrackpadAirTests {
     @Test func viewModelResolvesConfiguredAction() async {
         let setting = Setting(userDefaults: makeUserDefaults())
         setting.setAction(.leftClick, for: .ringPinch)
+        let executor = RecordingGestureActionExecutor()
         let viewModel = HandGestureViewModel(
             setting: setting,
-            actionExecutor: FakeGestureActionExecutor()
+            actionExecutor: executor
         )
-        viewModel.fingerTips = FingerTips(
-            thumb: .zero,
-            index: .init(x: 20, y: 0),
-            middle: .init(x: 40, y: 0),
-            ring: .init(x: 1, y: 1),
-            little: .init(x: 60, y: 0)
-        )
+        let frame = makeFrame(for: .ringPinch)
 
-        await viewModel.operate()
+        await viewModel.process(frame: frame)
+        await viewModel.process(frame: frame)
 
         #expect(viewModel.recognizedGesture == .ringPinch)
         #expect(viewModel.event == .leftClick)
+        #expect(executor.executedActions == [.leftClick])
+    }
+
+    @MainActor
+    @Test func sequenceActionDoesNotRepeatWhileGestureIsHeld() async {
+        let setting = Setting(userDefaults: makeUserDefaults())
+        setting.setAction(.leftClick, for: .ringPinch)
+        let executor = RecordingGestureActionExecutor()
+        let viewModel = HandGestureViewModel(
+            setting: setting,
+            actionExecutor: executor
+        )
+        let frame = makeFrame(for: .ringPinch)
+
+        await viewModel.process(frame: frame)
+        await viewModel.process(frame: frame)
+        await viewModel.process(frame: frame)
+        await viewModel.process(frame: frame)
+
+        #expect(executor.executedActions == [.leftClick])
     }
 
     private func makeUserDefaults() -> UserDefaults {
@@ -150,14 +238,126 @@ struct TrackpadAirTests {
         userDefaults.removePersistentDomain(forName: suiteName)
         return userDefaults
     }
+
+    private func makeFrame(
+        for gesture: HandGestureState,
+        scale: CGFloat = 100
+    ) -> HandPoseFrame {
+        let points: FingerTips
+        switch gesture {
+        case .indexPinch:
+            points = FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 20, y: 0),
+                middle: CGPoint(x: 200, y: 0),
+                ring: CGPoint(x: 300, y: 0),
+                little: CGPoint(x: 400, y: 0)
+            )
+        case .middlePinch:
+            points = FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 100, y: 0),
+                middle: CGPoint(x: 20, y: 0),
+                ring: CGPoint(x: 300, y: 0),
+                little: CGPoint(x: 400, y: 0)
+            )
+        case .ringPinch:
+            points = FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 100, y: 0),
+                middle: CGPoint(x: 200, y: 0),
+                ring: CGPoint(x: 20, y: 0),
+                little: CGPoint(x: 400, y: 0)
+            )
+        case .littlePinch:
+            points = FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 100, y: 0),
+                middle: CGPoint(x: 200, y: 0),
+                ring: CGPoint(x: 300, y: 0),
+                little: CGPoint(x: 20, y: 0)
+            )
+        case .indexMiddlePinch:
+            points = FingerTips(
+                thumb: CGPoint(x: -100, y: 0),
+                index: .zero,
+                middle: CGPoint(x: 20, y: 0),
+                ring: CGPoint(x: 200, y: 0),
+                little: CGPoint(x: 300, y: 0)
+            )
+        case .middleRingPinch:
+            points = FingerTips(
+                thumb: CGPoint(x: -100, y: 0),
+                index: CGPoint(x: 100, y: 0),
+                middle: .zero,
+                ring: CGPoint(x: 20, y: 0),
+                little: CGPoint(x: 200, y: 0)
+            )
+        case .ringLittlePinch:
+            points = FingerTips(
+                thumb: CGPoint(x: -100, y: 0),
+                index: CGPoint(x: 100, y: 0),
+                middle: CGPoint(x: 200, y: 0),
+                ring: .zero,
+                little: CGPoint(x: 20, y: 0)
+            )
+        case .threeFingerPinch:
+            points = FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 20, y: 0),
+                middle: CGPoint(x: 0, y: 20),
+                ring: CGPoint(x: 200, y: 0),
+                little: CGPoint(x: 300, y: 0)
+            )
+        case .none:
+            points = FingerTips(
+                thumb: .zero,
+                index: CGPoint(x: 100, y: 0),
+                middle: CGPoint(x: 200, y: 0),
+                ring: CGPoint(x: 300, y: 0),
+                little: CGPoint(x: 400, y: 0)
+            )
+        }
+
+        let ratio = scale / 100
+        return makeFrame(
+            fingerTips: FingerTips(
+                thumb: scaled(points.thumb, by: ratio),
+                index: scaled(points.index, by: ratio),
+                middle: scaled(points.middle, by: ratio),
+                ring: scaled(points.ring, by: ratio),
+                little: scaled(points.little, by: ratio)
+            ),
+            scale: scale
+        )
+    }
+
+    private func makeFrame(
+        fingerTips: FingerTips,
+        scale: CGFloat = 100
+    ) -> HandPoseFrame {
+        HandPoseFrame(
+            fingerTips: fingerTips,
+            handScale: scale,
+            confidence: 1
+        )
+    }
+
+    private func scaled(_ point: CGPoint, by ratio: CGFloat) -> CGPoint {
+        CGPoint(x: point.x * ratio, y: point.y * ratio)
+    }
 }
 
-private struct FakeGestureActionExecutor: GestureActionExecuting {
+@MainActor
+private final class RecordingGestureActionExecutor: GestureActionExecuting {
+    private(set) var executedActions: [Event] = []
+
     func execute(
         action: Event,
         fingerTips: FingerTips?,
         previousFingerTips: FingerTips?
     ) async -> Event? {
-        action
+        executedActions.append(action)
+        return action
     }
 }
