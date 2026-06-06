@@ -19,18 +19,24 @@ class VideoCapture: NSObject {
 
     func setup() {
         captureSession.beginConfiguration()
-        let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
         guard
-            let deviceInput = try? AVCaptureDeviceInput(device: device!),
+            let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+            let deviceInput = try? AVCaptureDeviceInput(device: device),
             captureSession.canAddInput(deviceInput)
-            else { return }
+        else {
+            captureSession.commitConfiguration()
+            return
+        }
         captureSession.addInput(deviceInput)
 
         let videoDataOutput = AVCaptureVideoDataOutput()
         videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "mydispatchqueue"))
         videoDataOutput.alwaysDiscardsLateVideoFrames = true
 
-        guard captureSession.canAddOutput(videoDataOutput) else { return }
+        guard captureSession.canAddOutput(videoDataOutput) else {
+            captureSession.commitConfiguration()
+            return
+        }
         captureSession.addOutput(videoDataOutput)
         captureSession.commitConfiguration()
     }
@@ -56,4 +62,3 @@ extension VideoCapture: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
 }
-
