@@ -80,8 +80,8 @@ struct TrackpadAirTests {
         userDefaults.set(
             [
                 "indexPinch": "not_an_event",
-                "not_a_gesture": Event.scroll.rawValue,
-                "ringPinch": Event.leftClick.rawValue
+                "not_a_gesture": Event.scroll.id,
+                "ringPinch": Event.leftClick.id
             ],
             forKey: "gestureActionAssignments"
         )
@@ -90,6 +90,36 @@ struct TrackpadAirTests {
 
         #expect(setting.action(for: .indexPinch) == .moveMouse)
         #expect(setting.action(for: .ringPinch) == .leftClick)
+    }
+
+    @MainActor
+    @Test func customCommandsPersistAndCanBeAssigned() {
+        let userDefaults = makeUserDefaults()
+        let setting = Setting(userDefaults: userDefaults)
+        var command = setting.addCommand()
+        command.displayName = "Open Search"
+        command.steps = [
+            CommandStep(kind: .shortcut, value: "command+space"),
+            CommandStep(kind: .typeText, value: "TrackpadAir")
+        ]
+        setting.updateCommand(command)
+        setting.setAction(command, for: .threeFingerPinch)
+
+        let restoredSetting = Setting(userDefaults: userDefaults)
+
+        #expect(restoredSetting.customCommands == [command])
+        #expect(restoredSetting.action(for: .threeFingerPinch) == command)
+    }
+
+    @MainActor
+    @Test func deletingCommandClearsItsAssignments() {
+        let setting = Setting(userDefaults: makeUserDefaults())
+        let command = setting.addCommand()
+        setting.setAction(command, for: .ringPinch)
+
+        setting.deleteCommands(at: IndexSet(integer: 0))
+
+        #expect(setting.action(for: .ringPinch) == nil)
     }
 
     @MainActor
