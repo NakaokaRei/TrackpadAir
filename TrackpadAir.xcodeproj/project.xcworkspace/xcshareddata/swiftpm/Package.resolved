@@ -1,14 +1,6 @@
 {
+  "originHash" : "10d567ce74adfc210b3b640cc46fbab39e9950679862af024bf1ee7a3730da04",
   "pins" : [
-    {
-      "identity" : "factory",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/hmlongco/Factory",
-      "state" : {
-        "branch" : "main",
-        "revision" : "3d6e997964f95e1d5925b018538fb10084ed1a70"
-      }
-    },
     {
       "identity" : "swiftautogui",
       "kind" : "remoteSourceControl",
@@ -19,5 +11,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
