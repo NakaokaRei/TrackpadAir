@@ -44,7 +44,8 @@ jobs:
           xcodebuild test \
             -project TrackpadAir.xcodeproj \
             -scheme TrackpadAir \
-            -destination 'platform=macOS'
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO
 
       - name: Archive app
         run: |
