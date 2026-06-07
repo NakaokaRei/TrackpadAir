@@ -34,6 +34,13 @@ You can operate the mouse according to your hand movements as follows.
 <img src="img/demo.gif" width="700">
 
 # Installation
+## Homebrew
+```bash
+brew install --cask NakaokaRei/tap/trackpad-air
+```
+
+See [NakaokaRei/homebrew-tap](https://github.com/NakaokaRei/homebrew-tap) for more details.
+
 ## TestFlight
 * Install [TestFlight](https://apps.apple.com/jp/app/testflight/id899247664?mt=8) from the App Store.
 * Open [this link](https://testflight.apple.com/join/5Z1dR12I) on your Mac.
