@@ -1,29 +1,41 @@
-name: Test
+name: Build and Test
 
 on:
+  pull_request:
   push:
     branches:
       - main
-  pull_request:
 
 permissions:
   contents: read
 
 concurrency:
-  group: test-${{ github.ref }}
+  group: build-and-test-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  test:
+  build-and-test:
     runs-on: macos-26
+    timeout-minutes: 20
 
     steps:
       - uses: actions/checkout@v6
 
-      - name: Run tests
+      - name: Build app and tests
         run: |
-          xcodebuild test \
+          xcodebuild build-for-testing \
             -project TrackpadAir.xcodeproj \
             -scheme TrackpadAir \
             -destination 'platform=macOS' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run unit tests
+        run: |
+          xcodebuild test-without-building \
+            -project TrackpadAir.xcodeproj \
+            -scheme TrackpadAir \
+            -destination 'platform=macOS' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            -only-testing:TrackpadAirTests \
             CODE_SIGNING_ALLOWED=NO
