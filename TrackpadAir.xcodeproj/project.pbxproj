@@ -613,7 +613,7 @@
 			repositoryURL = "https://github.com/NakaokaRei/SwiftAutoGUI";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.22.0;
+				minimumVersion = 0.24.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
