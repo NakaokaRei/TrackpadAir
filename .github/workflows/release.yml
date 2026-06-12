@@ -132,6 +132,27 @@ jobs:
             -scheme TrackpadAir \
             -archivePath "$RUNNER_TEMP/TrackpadAir.xcarchive"
 
+      - name: Notarize app
+        env:
+          APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        run: |
+          APP_PATH="$RUNNER_TEMP/TrackpadAir.xcarchive/Products/Applications/TrackpadAir.app"
+          NOTARIZATION_ZIP="$RUNNER_TEMP/TrackpadAir-notarization.zip"
+          API_KEY_PATH="$RUNNER_TEMP/AuthKey_$APP_STORE_CONNECT_API_KEY_ID.p8"
+
+          printf '%s' "$APP_STORE_CONNECT_API_KEY" > "$API_KEY_PATH"
+          ditto -c -k --keepParent "$APP_PATH" "$NOTARIZATION_ZIP"
+          xcrun notarytool submit "$NOTARIZATION_ZIP" \
+            --key "$API_KEY_PATH" \
+            --key-id "$APP_STORE_CONNECT_API_KEY_ID" \
+            --issuer "$APP_STORE_CONNECT_API_ISSUER_ID" \
+            --wait
+          xcrun stapler staple "$APP_PATH"
+          xcrun stapler validate "$APP_PATH"
+          spctl --assess --type execute --verbose=4 "$APP_PATH"
+
       - name: Package app
         run: |
           ditto -c -k --keepParent \
