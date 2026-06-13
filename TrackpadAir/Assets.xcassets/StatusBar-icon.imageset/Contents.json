@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "StatusBar-icon.pdf",
+      "filename" : "StatusBar-icon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "StatusBar-icon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "StatusBar-icon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
