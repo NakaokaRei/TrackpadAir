@@ -17,6 +17,32 @@ struct TrackpadAirApp: App {
         WindowGroup {
             HandGestureView()
         }
+
+        MenuBarExtra {
+            Label("Running", systemImage: "checkmark.circle.fill")
+
+            Divider()
+
+            SettingsLink {
+                Label("Settings...", systemImage: "gearshape")
+            }
+
+            Divider()
+
+            Button("Quit TrackpadAir", systemImage: "power") {
+                NSApplication.shared.terminate(nil)
+            }
+            .keyboardShortcut("q")
+        } label: {
+            Image("StatusBar-icon")
+                .resizable()
+                .renderingMode(.template)
+                .scaledToFit()
+                .frame(width: 18, height: 18)
+                .accessibilityLabel("TrackpadAir")
+        }
+        .menuBarExtraStyle(.menu)
+
         Settings {
             SettingsView()
         }
