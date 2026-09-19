@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build-and-test:
-    runs-on: macos-26
+    runs-on: macos-27
     timeout-minutes: 20
 
     steps:
