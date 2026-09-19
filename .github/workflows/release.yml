@@ -26,6 +26,11 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Select Xcode 27
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '27'
+
       - name: Validate version
         env:
           VERSION: ${{ inputs.version }}
